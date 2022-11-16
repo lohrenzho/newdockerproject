@@ -1,6 +1,6 @@
 pipeline { 
     environment { 
-        registry = "kenkool23/newrepo" 
+        registry = "lohrenzho/newrepo" 
         registryCredential = 'dockerhub'
         dockerImage = '' 
     }
@@ -8,7 +8,7 @@ pipeline {
     stages { 
         stage('Cloning our Git') { 
             steps { 
-                git 'https://github.com/kenkool23/dockerproject.git' 
+                git 'https://github.com/lohrenzho/newdockerproject.git' 
             }
         } 
         stage('Building image Docker') { 
@@ -35,8 +35,8 @@ pipeline {
         }
         stage('Run container on ECS') { 
             steps { 
-                withAWS(region:'us-east-2', credentials:'aws-cred' ) {
-               sh 'aws ecs update-service --cluster my-cluster --service newecs-service --task-definition newecs-tg --force-new-deployment'
+                withAWS(region:'us-east-1', credentials:'aws-cred' ) {
+               sh 'aws ecs update-service --cluster ecs-cluster --service ecs-service --task-definition ecs-td --force-new-deployment'
             }
             }
         }
